@@ -1,0 +1,235 @@
+/* target hide and show */
+.hsuforum-thread-title span,
+.hsuforum-thread-content,
+.hsuforum-thread-tools,
+.hsuforum-thread-replies,
+.addpost,
+.hsuforum-thread-nav,
+#allthreads,
+#hsuaddthread
+{ display:none; }
+
+
+article:target .hsuforum-thread-title .hsuforum-thread-view,
+article:target .hsuforum-thread-replies-meta
+{ display:none; }
+
+
+article:target .hsuforum-thread-title span,
+article:target .hsuforum-thread-content,
+article:target .hsuforum-thread-tools,
+article:target .hsuforum-thread-replies,
+article:target .addpost,
+article:target .hsuforum-thread-nav,
+#hsuaddthread:target
+{ display:block; }
+
+.hsuforum-thread-article:target {
+	background-color:#fff;
+}
+
+/* using open apend with js */
+article.open .hsuforum-thread-title .hsuforum-thread-view,
+article.open .hsuforum-thread-replies-meta
+{ display:none; }
+
+
+article.open .hsuforum-thread-title span,
+article.open .hsuforum-thread-content,
+article.open .hsuforum-thread-tools,
+article.open .hsuforum-thread-replies,
+article.open .addpost,
+article.open .hsuforum-thread-nav,
+#hsuaddthread:target
+{ display:block; }
+
+
+/* reset stuff */
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
+body,html {
+width:auto;
+margin:0 auto;
+padding:0%;
+color:#323232;}
+
+/* helpers */
+.pull-left {float:left;min-height:1px;}
+.pull-right {float:right;min-height:1px;}
+.center {text-align:center;}
+.clear{clear:both;}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+
+img {max-width:100%;height:auto;}
+
+
+/* media objects */
+.hsuforum-thread-figure,
+.hsuforum-post-figure,
+.hsuforum-thread-nav a{
+	float:left;
+	width:33.33%;
+	padding:0.33em;
+}
+.hsuforum-thread-body,
+.hsuforum-post-body{
+	float:left;
+	width:66.66%;
+	padding:0.33em;
+}
+
+/* fancy fonts */
+.hsuforum-thread-content,
+.hsuforum-post-content{
+	clear:both;
+	font-family: 'Droid Serif', serif;
+	font-size:1.2em;
+	line-height:1.6;
+}
+.hsuforum-description {
+	font-family: 'Droid Serif', serif;
+	font-size:1.2em;
+	line-height:1.6;
+}
+
+
+
+/* moodle stuff */
+.userpicture {max-width:100%; height:auto;border-radius:50%; margin:0 auto;display:block;}
+
+
+
+
+
+
+
+/* decoration for demos */
+
+#replybox { display:none;}
+
+.hsu-unreadcount,
+.hsu-unreadcount a{
+	position:absolute;
+	top:0;
+	right:0.2em;
+	background-color:orange;
+	color:white !important;
+	padding:0.2em 2%;
+}
+.hsuforum-post-tools,
+.hsuforum-thread-tools{
+
+	border-top: 1px solid #dadada;
+	border-bottom: 1px solid #dadada;
+}
+
+.hsuforum-thread-nav{
+	padding:1em;
+	border-top:1px solid #ccc;
+	margin-top:2em;
+}
+.addpost {
+	padding:1em;
+}
+.hsuforum-post,
+.hsuforum-thread-article{
+	padding:1em;
+}
+.hsuforum-post,
+.hsuforum-thread-header,
+.hsuforum-post-content{
+	position:relative;
+}
+.hsuforum-thread-replies h4 {
+	padding-bottom:0.3em;
+	border-bottom:1px solid #ccc;
+}
+
+.hsuforum-thread-subscribe{
+	position:absolute;
+	top:0;
+	right:1em;
+}
+:checked + span{
+  font-weight:bold;
+}
+:checked + span:after{
+  content:" - selected";
+  font-style:italic;
+}
+label {
+  font-weight:normal;
+}
+#hsuforum-header,
+#hsuforum-all,
+#hsucolophon{
+	background-color:white;
+	padding:1em 5%;
+	border-bottom:0.5em solid #dadada;
+}
+#hsucolophon {padding-top:4em;background-color:white;}
+#hsuforum-all { background-color:#ebebeb;}
+.hsuforum-thread-article {
+background-color:#fefefe;
+border:0.3em solid #ebebeb;
+box-shadow:inset 1px 1px 0 rgba(0, 0, 0, 0.1),inset -1px -1px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+#hsucolophon { display:none; }
+
+
+
+
+
+/* when the screen get big (800px+ish) */
+@media all and (min-width: 50em) {
+/*  .forum-discussion{width:50%;float:left;padding:0.3em 0.5%;min-height:7em;}
+  .discussions li:nth-child(even) {clear:both;}
+  */
+.hsuforum-title{float:left;width:33.33%;}
+.hsuforum-description {float:right;width:66.66%;padding:0%;}
+.userpicture.reply { max-width:66px; margin:-6em 0 0 0;display:block;}
+
+/* list indent */
+.end { margin-left:5.5%;}
+.child { margin-left:5.5%;}
+.child.parent ~ .child
+{margin-left:11.11%;}
+.child.parent ~ .parent ~ .child 
+{margin-left:16.5%;}
+}
+
+
+/* when the screen gets really big (960px+ish) */
+@media all and (min-width: 62em) {
+/*  .forum-discussion{width:33.33%;float:left;padding:0.3em 0.5%;}
+  .discussions li:nth-child(even) {clear:none;}
+  .discussions li:nth-child(3n+5) {clear:both;}
+*/
+  /* some sort of break after 3 for long titles, but needs to be dynamic */
+/*.discussions .forum-discussion:target { width:66%;background-color:#FFD464;} */
+
+
+}
+
+/* experimental stuff - content editabel */
+.textarea {
+cursor: text;
+    -moz-appearance: textfield-multiline;
+    -webkit-appearance: textarea;
+    border: 1px solid #ccc;
+    height: 8em;
+    overflow: auto;
+    padding: 0.5em;
+    resize: both;
+}
+
