@@ -133,6 +133,27 @@ rel="stylesheet">
 </footer> 
 -->
 
+<div id="replybox" style="display:none;">
+<form method="post" role="form" class="addpost" tabindex="0">
+<fieldset>
+	<legend>Reply to </legend>
+	<div class="hsuforum-post-figure">
+		<img alt="your name here" src="imgs/3.gif" class="userpicture img-circle"> 
+	</div>
+	<div class="hsuforum-post-body">
+		<br>
+		<div title="Post a reply" placeholder="Post a reply" contenteditable="true" spellcheck="true" role="textbox" aria-multiline="true" class="textarea">
+		</div>
+		<br>
+		<input type="file" name="files" multiple="">
+		<br>
+		<input type="text" name="replyto">
+		<button type="submit" class="btn btn-default">Submit</button> 
+		<a class="pull-right" href="">Use advanced editor</a>
+	</div>
+</fieldset>
+</form>
+</div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -155,14 +176,6 @@ $(document).on("click",".hsu-focus", function(e) {
 	console.log(document.activeElement); // element with focus
 });
 
-
-// add threads
-$(document).on("click",".hsu-addthread-button", function(e) {
-	$($(e.target).attr('href')).focus();
-});
-
-
-
 // add posts
 $(document).on("click", ".scrolltoreply", function(e) {
 	postbox =$(e.target).parents('article').find('.addpost');
@@ -171,6 +184,113 @@ $(document).on("click", ".scrolltoreply", function(e) {
 	e.preventDefault();
 });
 
+$replybox = $('#replybox');
+
+$(document).on('click','.hsuforum-post .scrolltoreply',function(e) {
+	$replybox = $('#replybox').find('form').clone();
+	$to = $(e.target).parents('li').attr('data-author');
+	$($replybox).find('legend').html("Reply to "+$to);
+	$($replybox).find('input[name="replyto"]').val($to);
+	$(e.target).parents('.hsuforum-post-tools').after($replybox);
+	$(e.target).parents('li').find('form').focus();
+	e.preventDefault();
+});
+
+$(document).on("submit", ".addpost", function(e) {
+	processForm(e);
+	alert('your reply has been posted');
+	$(e.target).remove();
+	e.preventDefault();
+});
+
+
+function processForm(e) {
+	var hsuforumThreadRepliesList = $(e.target).parents('article').find('.hsuforum-thread-replies-list');
+
+	var hsuforumPostFigure = '<div class="hsuforum-post-figure"><img alt="" src="imgs/3.gif" class="userpicture img-circle"></div>';
+	
+	var reply = $(e.target).find('input[name="replyto"]').val();
+	
+	var hsuforumPostByline ='<h5 role="heading" aria-level="5" class="hsuforum-post-byline">Post by <a href="">you</a>';
+	var child = '';
+	
+	// js for replying to posts
+	if (reply) {
+		hsuforumPostByline +='<span class="sr-only">to</span> <i class="icon-share-alt"></i>  <a href="">'+ reply +'</a>';
+		hsuforumThreadRepliesList = $(e.target).parents('.hsuforum-post');
+		child = 'child';
+		
+		var parentLevel = parentLevel = hsuforumThreadRepliesList.data("level");
+		var level = 1;
+		
+		if(parentLevel) { // if we are already in reply 
+			level = (parentLevel+1);
+		}
+		var dataLevel = 'data-level="'+level+'"';
+		// check for where to append post
+		// $lastOfDepth = $(e.target).parents('.hsuforum-post').nextUntil("li:not([data-level="+ level+"]").last();
+		
+		$lastOfDepth = $(e.target).parents('.hsuforum-post').nextUntil("li:not(.child)").last();
+		
+		if($($lastOfDepth).is('li')) {
+			// hsuforumThreadRepliesList = findPlace($lastOfDepth);
+			// hsuforumThreadRepliesList = $lastOfDepth;
+		}
+	}
+	
+	hsuforumPostByline += '</h5>';
+	
+	var content = $(e.target).find('.textarea').html();
+	var hsuforumPostContent ='<div class="hsuforum-post-content">'+ content +'</div>';
+	
+	var hsuforumPostTools = '<div class="hsuforum-post-tools" aria-label="tools" role="region"> <a class="scrolltoreply" href="#">Reply</a> |<div class="btn-group"> <div> <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"> Rate <span class="caret"></span> </button> <ul class="dropdown-menu" role="menu"> <li role="menuitem"><label><input type="radio" name="useful" class="sr-only"><span>Useful</span></label></li> <li role="menuitem"><label><input type="radio" name="useful" class="sr-only"><span>No rating</span></label></li> </ul> </div> </div>| <a href="">Useful (0)</a> | <span aria-label="tracking options"><a title="bookmark" href="#"><span class="sr-only">bookmark</span><i class="icon-flag-alt"></i></a> | <a title=" mark substantive" href="#"><span class="sr-only">mark substantive</span><i class="icon-bookmark-empty"></i></a></span> <div class="btn-group pull-right"> <div> <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"><span class="sr-only">More </span>Options <span class="caret"></span> </button> <ul class="dropdown-menu" role="menu"> <li><a role="menuitem" href="#">Edit</a></li> <li><a role="menuitem" href="#">Delete</a></li> <li class="divider"></li> <li><a role="menuitem" href="#">Export</a></li> </ul> </div> </div> </div>';
+	
+	var hsuforumPostBody ='<div class="hsuforum-post-body">'+ hsuforumPostByline + dataLevel + hsuforumPostContent +'<time class="hsuforum-post-pubdate" pubdate=""><a title="permalink" href="">3:08 pm on October 28th, 2013</a></time>'+ hsuforumPostTools +'</div>';
+	
+	var hsuforumPost = '<li class="hsuforum-post clearfix '+ child +'" data-author="you" '+ dataLevel +'>'+ hsuforumPostFigure + hsuforumPostBody +'</li>';
+	
+	
+	if (reply) {
+		$(hsuforumThreadRepliesList).after(hsuforumPost);
+	}
+	else {
+		$(hsuforumThreadRepliesList).append(hsuforumPost);
+	}
+	
+	// console.log(hsuforumPost);
+
+}
+
+function findPlace(lastOfDepth,level) {
+	// the last child in the list!
+	if($(lastOfDepth).next('li.child').length) { // 1. there is no next li
+		// 2. there is a next li, what is its depth?
+		var next = $(lastOfDepth).next('li.child')
+		var nextLevel = $(next).data("level");
+		alert(nextLevel);
+		return lastOfDepth;
+	}
+	else {
+		alert('no next level! - exit loop');
+		return lastOfDepth; 
+	}
+	/*
+	var nextLevel = $(next).data("level");
+	if(nextLevel == level) {
+		return lastOfDepth;
+	}
+	
+	if(nextLevel < level) {
+		return lastOfDepth;
+	}
+	else {
+		console.log('iterating');
+		findPlace(next,level);
+	}
+	*/
+	// return lastOfDepth;
+	// while lastOfDepth next level > currentLevel
+}
 </script>
 
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>

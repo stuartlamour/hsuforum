@@ -189,7 +189,6 @@ box-shadow:inset 1px 1px 0 rgba(0, 0, 0, 0.1),inset -1px -1px 0 rgba(0, 0, 0, 0.
 
 
 
-
 /* when the screen get big (800px+ish) */
 @media all and (min-width: 50em) {
 /*  .forum-discussion{width:50%;float:left;padding:0.3em 0.5%;min-height:7em;}
@@ -199,13 +198,27 @@ box-shadow:inset 1px 1px 0 rgba(0, 0, 0, 0.1),inset -1px -1px 0 rgba(0, 0, 0, 0.
 .hsuforum-description {float:right;width:66.66%;padding:0%;}
 .userpicture.reply { max-width:66px; margin:-6em 0 0 0;display:block;}
 
-/* list indent */
-.end { margin-left:5.5%;}
-.child { margin-left:5.5%;}
-.child.parent ~ .child
-{margin-left:11.11%;}
-.child.parent ~ .parent ~ .child 
-{margin-left:16.5%;}
+/* data level indents */
+[data-level='1'] {
+  margin:3.33%;
+}
+[data-level='2'] {
+  margin:6.66%;
+}
+[data-level='3'] {
+  margin:9.99%;
+}
+[data-level='4'] {
+  margin:13.32%;
+}
+[data-level='5'] {
+  margin:16.65%;
+}
+[data-level='6'] {
+  margin:19.98%;
+}
+
+
 }
 
 
