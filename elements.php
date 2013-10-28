@@ -204,7 +204,7 @@ $post = '<li class="hsuforum-post clearfix" data-author="'.$author.'">
 	<span class="hsu-unreadcount">Unread
 	<!--<a href="" title="next unread post"> <span class="sr-only">Next unread post</span><i class="icon-angle-right"></i></a>-->
 	</span>
-	<h5 class="hsuforum-post-byline">Post by <a href="">'.$author.'</a></h5>
+	<h5 role="heading" aria-level="5" class="hsuforum-post-byline">Post by <a href="">'.$author.'</a></h5>
 
 
 	<div class="hsuforum-post-content">
@@ -268,7 +268,7 @@ function mPosts($num) {
 		$posts .= '
 		<!-- replies section -->
 		<!-- <section class="hsuforum-thread-replies" role="region" aria-label="'.$num.' Replies"> -->
-		<div class="hsuforum-thread-replies" tabindex="0"><h4>'.$num.' Replies</h4>
+		<div class="hsuforum-thread-replies" tabindex="0"><h4 role="heading" aria-level="4">'.$num.' Replies</h4>
 		<ol class="hsuforum-thread-replies-list list-unstyled">';
 		while ($i <= $num){
 			$posts .= mPost();
