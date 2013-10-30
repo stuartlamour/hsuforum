@@ -106,7 +106,7 @@ $head = '<header class="hsuforum-thread-header clearfix">
 </div>
 
 <div class="hsuforum-thread-body">
-<p class="hsuforum-thread-byline"><a class="hsuforum-thread-author" href="#">by '.$author.'</a> | <time class="hsuforum-thread-pubdate" datetime="2013-09-24T08:00:14-05:00" pubdate>2:05pm Sept 24 2013</time>
+<p class="hsuforum-thread-byline"><a class="hsuforum-thread-author" href="#">by '.$author.'</a> | Group A <br /><time class="hsuforum-thread-pubdate" datetime="2013-09-24T08:00:14-05:00" pubdate>2:05pm Sept 24 2013</time>
 
 <a href="#id_'.$threadId.'" title="view unread posts" class="hsu-unreadcount hsu-focus">'.$num.' unread </a></p>
 
@@ -194,7 +194,7 @@ $crand = array_rand($content, 1);
 $post_content = $content[$crand];
 
 
-$post = '<li class="hsuforum-post clearfix" data-author="'.$author.'">
+$post = '<li class="hsuforum-post clearfix" data-author="'.$author.'" data-level="1">
 
 <div class="hsuforum-post-figure">
 <img class="userpicture img-circle" src="imgs/'.$rand.'.gif"  alt="" />

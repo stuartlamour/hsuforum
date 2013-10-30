@@ -42,10 +42,10 @@ rel="stylesheet">
 <body>
 
 <!-- forum header content -->
-<!--
+
 <header role="region" aria-label="Forum header" class="clearfix" id='hsuforum-header'>
 <h1 class="hsuforum-title">Foundations of product design</h1>
-<div class="hsuforum-description">
+<div class="hsuforum-description clearfix">
 <br/>
 <p><strong>Everyone designs.</strong></p>
 <p>Design occurs anytime you change any environment.</p>
@@ -55,20 +55,55 @@ rel="stylesheet">
 <p>Have fun! - Stuart</p>
 </div>
 
-<a href="">6 unread replies</a>
-<a href="">4 new (TBD - since last login??)</a>
+<div class="hsuforum-displayOptions">
+Display : <select>
+<option selected="selected" value="header">Default</option>
+<option value="tree">Tree</option>
+<option value="nested">Nested</option>
+</select>
+</div>
 </header>
--->
+
 
 <!-- forum threads -->
 
 <section role="region" aria-label="Discussions"  class="hsuforum-threads-wrapper" id="hsuforum-all">
 
 <div class="clearfix">
-	<h2 class="pull-left">3 Discussions </h2>
+	<div class="pull-left">
+	<h2>3 Discussions </h2>
+	</div>
 	<a role="button" class="pull-right btn btn-primary" id="hsu-addthread-button" href='#hsuaddthread'>Add a new discussion</a>
 	<br class="clearfix clear" />
+	
+	<div class="hsuforum-filter clearfix"><a href=''>Subsciptions (6)</a> | <div class="btn-group">
+  <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+    Group <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">A</a></li>
+    <li><a href="#">B</a></li>
+    <li><a href="#">C</a></li>
+    <li class="divider"></li>
+    <li><a href="#">All</a></li>
+  </ul>
 </div>
+	<div class="hsuforum-sort pull-right"> Sort by :
+	<div class="btn-group">
+	<button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+    Recent <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+  	<li><a href="#">Last post date</a></li>
+    <li><a href="#">Creation date</a></li>
+    <li><a href="#">First name</a></li>
+    <li><a href="#">Last name</a></li>
+    <li><a href="#">Replies</a></li>
+  </ul></div></p>
+	</div>
+<br/>
+	
+	
 
 <form method="post" role="form" id="hsuaddthread" class="clearfix">
 	<fieldset><legend>Add your discussion</legend>
@@ -147,7 +182,7 @@ rel="stylesheet">
 		<br>
 		<input type="file" name="files" multiple="">
 		<br>
-		<input type="text" name="replyto">
+		<input type="hidden" name="replyto">
 		<button type="submit" class="btn btn-default">Submit</button> 
 		<a class="pull-right" href="">Use advanced editor</a>
 	</div>
@@ -172,8 +207,10 @@ $(document).on("click",".hsu-focus", function(e) {
 		$(href).find('.hsuforum-thread-content')[0].scrollIntoView(true);
 		$("#js-liveregion").html("Discussion opened");
 	}
+	/*
 	console.log("the browser says this has focus :");
 	console.log(document.activeElement); // element with focus
+	*/
 });
 
 // add posts
@@ -193,19 +230,53 @@ $(document).on('click','.hsuforum-post .scrolltoreply',function(e) {
 	$($replybox).find('input[name="replyto"]').val($to);
 	$(e.target).parents('.hsuforum-post-tools').after($replybox);
 	$(e.target).parents('li').find('form').focus();
+	$message = "<li id='postmarker'>This is where your post will go</li>";
+	
 	e.preventDefault();
 });
 
 $(document).on("submit", ".addpost", function(e) {
+	/*
 	processForm(e);
-	alert('your reply has been posted');
 	$(e.target).remove();
 	e.preventDefault();
+	*/
 });
 
 
+
+
+
+function findPlace(Node,thisDepth) {
+	var testNode = Node;
+	
+	var testDepth = $(testNode).data("level");
+	console.log('testNode depth : '+ testDepth);
+	console.log('this depth : '+ thisDepth);
+	
+	if (thisDepth <= testDepth){
+		if(!$(testNode).next('li.child').length) {
+			console.log('FOUND NODE ');
+			console.log($(testNode).find('.hsuforum-post-content').html());
+			return testNode;
+		}
+		// step
+		else {
+			console.log('ITERATING');
+			console.log($(testNode).next('li.child').find('.hsuforum-post-content').html());
+			findPlace($(testNode).next('li.child'), thisDepth);
+		}
+	}
+	/*
+	else {
+		insertBeforeFlag = true;
+		 return testNode;
+	}
+	*/
+}
+
 function processForm(e) {
-	var hsuforumThreadRepliesList = $(e.target).parents('article').find('.hsuforum-thread-replies-list');
+	hsuforumThreadRepliesList = $(e.target).parents('article').find('.hsuforum-thread-replies-list');
 
 	var hsuforumPostFigure = '<div class="hsuforum-post-figure"><img alt="" src="imgs/3.gif" class="userpicture img-circle"></div>';
 	
@@ -217,24 +288,21 @@ function processForm(e) {
 	// js for replying to posts
 	if (reply) {
 		hsuforumPostByline +='<span class="sr-only">to</span> <i class="icon-share-alt"></i>  <a href="">'+ reply +'</a>';
-		hsuforumThreadRepliesList = $(e.target).parents('.hsuforum-post');
+		
+		var hsuforumThreadRepliesList = $(e.target).parents('.hsuforum-post');
 		child = 'child';
 		
 		var parentLevel = parentLevel = hsuforumThreadRepliesList.data("level");
-		var level = 1;
-		
-		if(parentLevel) { // if we are already in reply 
-			level = (parentLevel+1);
-		}
+		var level = (parentLevel+1);
 		var dataLevel = 'data-level="'+level+'"';
-		// check for where to append post
-		// $lastOfDepth = $(e.target).parents('.hsuforum-post').nextUntil("li:not([data-level="+ level+"]").last();
 		
-		$lastOfDepth = $(e.target).parents('.hsuforum-post').nextUntil("li:not(.child)").last();
 		
-		if($($lastOfDepth).is('li')) {
-			// hsuforumThreadRepliesList = findPlace($lastOfDepth);
-			// hsuforumThreadRepliesList = $lastOfDepth;
+		insertBeforeFlag = false;
+		if($(e.target).parents('.hsuforum-post').next('li.child').length) {
+			
+			hsuforumThreadRepliesList = findPlace($(e.target).parents('.hsuforum-post').next('li.child'),level);
+			console.log($(hsuforumThreadRepliesList).find('.hsuforum-post-content').html());
+			console.log('before ?'+ insertBeforeFlag);
 		}
 	}
 	
@@ -251,46 +319,28 @@ function processForm(e) {
 	
 	
 	if (reply) {
-		$(hsuforumThreadRepliesList).after(hsuforumPost);
+		// its a reply iteam - add
+		console.log($(hsuforumThreadRepliesList).length);
+		if(insertBeforeFlag) {
+			$(hsuforumThreadRepliesList).before(hsuforumPost);
+			console.log('INSERT BEFORE');
+			alert('your reply has been posted');
+		}
+		else {
+			$(hsuforumThreadRepliesList).after(hsuforumPost);
+			console.log('INSERT AFTER');
+			alert('your reply has been posted');
+		}
 	}
 	else {
+		// its a list - append
 		$(hsuforumThreadRepliesList).append(hsuforumPost);
+		alert('your reply has been posted');
 	}
-	
 	// console.log(hsuforumPost);
-
 }
 
-function findPlace(lastOfDepth,level) {
-	// the last child in the list!
-	if($(lastOfDepth).next('li.child').length) { // 1. there is no next li
-		// 2. there is a next li, what is its depth?
-		var next = $(lastOfDepth).next('li.child')
-		var nextLevel = $(next).data("level");
-		alert(nextLevel);
-		return lastOfDepth;
-	}
-	else {
-		alert('no next level! - exit loop');
-		return lastOfDepth; 
-	}
-	/*
-	var nextLevel = $(next).data("level");
-	if(nextLevel == level) {
-		return lastOfDepth;
-	}
-	
-	if(nextLevel < level) {
-		return lastOfDepth;
-	}
-	else {
-		console.log('iterating');
-		findPlace(next,level);
-	}
-	*/
-	// return lastOfDepth;
-	// while lastOfDepth next level > currentLevel
-}
+
 </script>
 
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
