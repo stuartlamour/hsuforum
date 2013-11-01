@@ -76,7 +76,7 @@ Display : <select>
 	<a role="button" class="pull-right btn btn-primary" id="hsu-addthread-button" href='#hsuaddthread'>Add a new discussion</a>
 	<br class="clearfix clear" />
 	
-	<div class="hsuforum-filter clearfix"><a href=''>Subsciptions (6)</a> | <div class="btn-group">
+	<div class="hsuforum-filter clearfix"><a href=''>My discusions (6)</a> | <a href="">Replies to my posts (3)</a> | <div class="btn-group">
   <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
     Group <span class="caret"></span>
   </button>

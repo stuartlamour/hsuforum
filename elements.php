@@ -106,14 +106,22 @@ $head = '<header class="hsuforum-thread-header clearfix">
 </div>
 
 <div class="hsuforum-thread-body">
+<div style="width:66.6%">
 <p class="hsuforum-thread-byline"><a class="hsuforum-thread-author" href="#">by '.$author.'</a> | Group A <br /><time class="hsuforum-thread-pubdate" datetime="2013-09-24T08:00:14-05:00" pubdate>2:05pm Sept 24 2013</time>
 
 <a href="#id_'.$threadId.'" title="view unread posts" class="hsu-unreadcount hsu-focus">'.$num.' unread </a></p>
 
-<h3 role="heading" aria-level="3" class="hsuforum-thread-title" id="thread'.$threadId.'"><a href="#id_'.$threadId.'" class="hsu-focus" data-target="#id_'.$threadId.'" >'.$title.'</a></h3>';
+<h3 role="heading" aria-level="3" class="hsuforum-thread-title" id="thread'.$threadId.'"><a href="#id_'.$threadId.'" class="hsu-focus" data-target="#id_'.$threadId.'" >'.$title.'</a></h3>
+</div>';
 
 if ($num) {
 		$head .= '<div class="hsuforum-thread-replies-meta pull-right" >
+				<span class="picwall">
+				<img src="imgs/1.gif" alt="">
+				<img  src="imgs/2.gif" alt="">
+				<img  src="imgs/3.gif" alt="">
+				<img  src="imgs/4.gif" alt="">
+				</span>
 				<span class="hsuforum-thread-viewcount">'.$views.' views</span> | <span class="hsuforum-thread-repliescount">'.$num.' replies </span><br/> last post 3:08pm  Oct 7, 2013</p>';
 }
 /*<!-- subscription stuff -->
