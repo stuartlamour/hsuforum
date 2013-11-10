@@ -101,29 +101,25 @@ $title = $titles[$trand];
 
 
 $head = '<header class="hsuforum-thread-header clearfix">
+
 <div class="hsuforum-thread-figure">
 	<img class="userpicture img-circle" src="imgs/'.$rand.'.gif"  alt="" />
 </div>
 
 <div class="hsuforum-thread-body">
-<div style="width:66.6%">
-<p class="hsuforum-thread-byline"><a class="hsuforum-thread-author" href="#">by '.$author.'</a> | Group A <br /><time class="hsuforum-thread-pubdate" datetime="2013-09-24T08:00:14-05:00" pubdate>2:05pm Sept 24 2013</time>
+<p class="hsuforum-thread-byline"><a class="hsuforum-thread-author" href="#">'.$author.'</a>
+	
 
-<a href="#id_'.$threadId.'" title="view unread posts" class="hsu-unreadcount hsu-focus">'.$num.' unread </a></p>
+<a href="#id_'.$threadId.'" title="view unread posts" class="hsu-unreadcount hsu-focus">'.$num.' unread </a>
+<br /><time class="hsuforum-thread-pubdate" pubdate>Oct 1 2013 3:08 pm</time></p>
+	
+	<h3 role="heading" aria-level="3" class="hsuforum-thread-title" id="thread'.$threadId.'"><a href="#id_'.$threadId.'" class="hsu-focus" data-target="#id_'.$threadId.'" >'.$title.'</a></h3>
 
-<h3 role="heading" aria-level="3" class="hsuforum-thread-title" id="thread'.$threadId.'"><a href="#id_'.$threadId.'" class="hsu-focus" data-target="#id_'.$threadId.'" >'.$title.'</a></h3>
-</div>';
+	
 
-if ($num) {
-		$head .= '<div class="hsuforum-thread-replies-meta pull-right" >
-				<span class="picwall">
-				<img src="imgs/1.gif" alt="">
-				<img  src="imgs/2.gif" alt="">
-				<img  src="imgs/3.gif" alt="">
-				<img  src="imgs/4.gif" alt="">
-				</span>
-				<span class="hsuforum-thread-viewcount">'.$views.' views</span> | <span class="hsuforum-thread-repliescount">'.$num.' replies </span><br/> last post 3:08pm  Oct 7, 2013</p>';
-}
+';
+
+
 /*<!-- subscription stuff -->
 	<div class="pull-right" aria-label="tracking options" role="region">
 	<a title="subscribe" href="#"><span class="sr-only">subscribe</span><i class="icon-envelope-alt"></i></a>
@@ -133,7 +129,32 @@ if ($num) {
 	 <a title=" mark substantive" href="#"><span class="sr-only">mark substantive</span><i class="icon-bookmark-empty"></i></a>
 	 </div>
 */
-$head .= "</div><!-- hsuforum-thread-body --></header>";
+if ($num) {
+		$head .= '
+			<div class="hsuforum-thread-replies-meta" >
+				<div class="text">
+				<span class="hsuforum-thread-repliescount">'.$num.' replies </span> · <span class="hsuforum-thread-viewcount">600 views </span>  <br />Last post : 3 hours ago
+			</div>
+			
+			<span class="picwall">
+				<img src="imgs/1.gif" alt="">
+				<img  src="imgs/2.gif" alt="">
+				<img  src="imgs/3.gif" alt="">
+				<img  src="imgs/4.gif" alt="">
+			</span>
+			</div>';
+}
+$head .= '<!-- subscription stuff -->
+	<span class="hsuforum-thread-tracking" aria-label="tracking options" role="region">
+	<a title="subscribe" href="#"><span class="sr-only">subscribe</span><i class="fa fa-envelope"></i></a>
+	 <a title="bookmark" href="#"><span class="sr-only">bookmark</span><i class="fa fa-bookmark"></i></a>
+	 <a title=" mark substantive" href="#"><span class="sr-only">mark substantive</span><i class="fa fa-star"></i></a>
+	 </span>';	
+$head .= "</div><!-- hsuforum-thread-body -->";
+
+
+
+$head .= "</header>";
 	
 	
 	$head .= '
@@ -159,14 +180,7 @@ $head .= "</div><!-- hsuforum-thread-body --></header>";
 		</div>
 		</div>
 	| <a href="">Useful (3)</a> 
-	| <!-- subscription stuff -->
-	<span aria-label="tracking options" role="region">
-	<a title="subscribe" href="#"><span class="sr-only">subscribe</span><i class="icon-envelope-alt"></i></a>
-	 | 
-	 <a title="bookmark" href="#"><span class="sr-only">bookmark</span><i class="icon-flag-alt"></i></a>
-	 | 
-	 <a title=" mark substantive" href="#"><span class="sr-only">mark substantive</span><i class="icon-bookmark-empty"></i></a>
-	 </span>
+	
 	 
 	 <!-- options -->
 	<div class="btn-group pull-right" >
@@ -219,7 +233,7 @@ $post = '<li class="hsuforum-post clearfix" data-author="'.$author.'" data-level
 		'.$post_content.'
 	</div>
 	
-	<time class="hsuforum-post-pubdate" pubdate><a title="permalink" href="">3:08 pm on October 1, 2013</a></time>
+	<time class="hsuforum-post-pubdate" pubdate><a title="permalink" href="">Oct 1 2013 3:08 pm</a></time>
 	
 	
 	
@@ -237,9 +251,9 @@ $post = '<li class="hsuforum-post clearfix" data-author="'.$author.'" data-level
     </div>| <a href="">Useful (3)</a> 
  <!-- options -->
 	 | <!-- bookmark tools -->
-    <span  aria-label="tracking options"><a title="bookmark" href="#"><span class="sr-only">bookmark</span><i class="icon-flag-alt"></i></a>
+    <span  aria-label="tracking options"><a title="bookmark" href="#"><span class="sr-only">bookmark</span><i class="fa fa-bookmark"></i></a>
 	 | 
-	 <a title=" mark substantive" href="#"><span class="sr-only">mark substantive</span><i class="icon-bookmark-empty"></i></a></span>
+	 <a title=" mark substantive" href="#"><span class="sr-only">mark substantive</span><i class="fa fa-star"></i></a>
 	 
 	<div class="btn-group pull-right" >
 		<div>
@@ -288,7 +302,7 @@ function mPosts($num) {
 		<!-- close replies section -->';
 	}
 	$posts .= $reply;
-	$posts .= '<nav  class="hsuforum-thread-nav" ><a class="hsu-focus" data-target="hsuforum-all" href="#hsuforum-all"><i class="icon-angle-up"></i> close discussion</a>'.getPrevious($threadId).getNext($threadId).'
+	$posts .= '<nav  class="hsuforum-thread-nav clearfix" ><a class="hsu-focus" data-target="hsuforum-all" href="#hsuforum-all"><i class="icon-angle-up"></i> close discussion</a>'.getPrevious($threadId).getNext($threadId).'
 
 </nav></article>
 	<!-- close article -->';

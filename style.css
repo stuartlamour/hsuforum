@@ -79,6 +79,7 @@ img {max-width:100%;height:auto;}
 	float:left;
 	width:33.33%;
 	padding:0.33em;
+	text-align:center;
 }
 .hsuforum-thread-body,
 .hsuforum-post-body{
@@ -189,33 +190,48 @@ box-shadow:inset 1px 1px 0 rgba(0, 0, 0, 0.1),inset -1px -1px 0 rgba(0, 0, 0, 0.
 	position: absolute;
 	top: -1em;
 	right: -1em;
-	background-color: orange;
+	background-color: #C0C0C0;
 	color: white !important;
 	padding: 0.2em 2%;
 }
 
 
+
 .hsuforum-thread-replies-meta {
-	width:33.3%;
-	margin-top:-5em;
-	text-align:right;
+	clear:both;
+	color:#666;
+	border-top:1px solid #ccc;
+	padding:0.5em 0;
+	font-size:0.9em;
+}
+.hsuforum-thread-replies-meta .text {
+	float:left;
 }
 .picwall {
-	display:block;
+	margin:0.5em;
 }
+
 .picwall img {
 	width:35px;
 	margin:0;
 	padding:0;
-	border:0;
+	border-radius:50%;
+}
+.hsuforum-thread-tracking {
+	position:absolute;
+	right:0;
+	top:2em;
+	text-align:center;
 	
 }
 
 /* when the screen get big (800px+ish) */
 @media all and (min-width: 50em) {
-/*  .forum-discussion{width:50%;float:left;padding:0.3em 0.5%;min-height:7em;}
-  .discussions li:nth-child(even) {clear:both;}
-  */
+/*
+.hsuforum-thread-article{width:50%;float:left;padding:1em;min-height:7em;}
+
+.hsuforum-threads-wrapper .hsuforum-thread-article:nth-child(even) {clear:both;}
+*/
 .hsuforum-title{float:left;width:33.33%;}
 .hsuforum-description {float:right;width:66.66%;padding:0%;}
 .userpicture.reply { max-width:66px; margin:-6em 0 0 0;display:block;}
@@ -246,16 +262,29 @@ box-shadow:inset 1px 1px 0 rgba(0, 0, 0, 0.1),inset -1px -1px 0 rgba(0, 0, 0, 0.
 
 /* when the screen gets really big (960px+ish) */
 @media all and (min-width: 62em) {
-/*  .forum-discussion{width:33.33%;float:left;padding:0.3em 0.5%;}
-  .discussions li:nth-child(even) {clear:none;}
-  .discussions li:nth-child(3n+5) {clear:both;}
+/*
+.hsuforum-thread-article{width:33.33%;float:left;padding:0.3em 0.5%;}
+
+.hsuforum-threads-wrapper .hsuforum-thread-article:nth-child(even) {clear:none;}
+  .hsuforum-threads-wrapper .hsuforum-thread-article:nth-child(3n+5) {clear:both;}
 */
   /* some sort of break after 3 for long titles, but needs to be dynamic */
 /*.discussions .forum-discussion:target { width:66%;background-color:#FFD464;} */
 
 
 }
-
+@media (max-width: 400px) {
+	.hsuforum-thread-figure, 
+	.hsuforum-post-figure,
+	.hsuforum-thread-body, 
+	.hsuforum-post-body,
+	.hsuforum-thread-replies-meta,
+	.picwall{
+		clear:both;display:block;
+		width:100%;
+		float:none;
+	}
+}
 /* experimental stuff - content editabel */
 .textarea {
 cursor: text;
@@ -269,4 +298,11 @@ cursor: text;
 }
 
 
+/* experimenting with views */
+
+#small .hsuforum-thread-figure {width:10%;}
+#small .hsuforum-thread-body {width:90%;}
+#small .hsuforum-thread-byline  {float:left; width:33.3%;}
+#small .hsuforum-thread-title{float:right; width:66.6%;}
+#small .hsuforum-thread-title {padding:0;margin:0;}
 

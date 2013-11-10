@@ -25,7 +25,7 @@ rel="stylesheet">
 
 <link href="http://www.umt.edu/_common/assets/css/um-homepage.min.css" rel="stylesheet">
 -->
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'> 
 <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
@@ -54,14 +54,14 @@ rel="stylesheet">
 <p>Some instructions / introduction / guidence on using this forum</p>
 <p>Have fun! - Stuart</p>
 </div>
-
-<div class="hsuforum-displayOptions">
+<br class='clear'/>
+<p class="hsuforum-displayOptions pull-right">
 Display : <select>
 <option selected="selected" value="header">Default</option>
 <option value="tree">Tree</option>
 <option value="nested">Nested</option>
 </select>
-</div>
+</p>
 </header>
 
 
@@ -101,7 +101,7 @@ Display : <select>
     <li><a href="#">Replies</a></li>
   </ul></div></p>
 	</div>
-<br/>
+</div>
 	
 	
 
